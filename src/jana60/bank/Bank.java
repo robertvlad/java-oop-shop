@@ -25,7 +25,7 @@ public class Bank {
 			
 			if(sceltaUtente == 0) {
 				
-				System.out.println("quanto vuoi versare?: ");
+				System.out.println("Quanto vuoi versare?: ");
 				float cifraVersare = sc.nextFloat();
 				
 				contoUtente.versare(cifraVersare);
@@ -34,7 +34,7 @@ public class Bank {
 				
 			}else if(sceltaUtente == 1) {
 				
-				System.out.println("quanto vuoi prelevare?: ");
+				System.out.println("Quanto vuoi prelevare?: ");
 				float cifraPrelevare = sc.nextFloat();
 				
 				contoUtente.prelevare(cifraPrelevare);
@@ -44,7 +44,6 @@ public class Bank {
 			}else if(sceltaUtente == 2) {
 				
 				System.out.println(contoUtente);
-				
 			}		
 		}
 		

@@ -4,105 +4,111 @@ import java.util.Random;
 
 public class Prodotto {
 	
-	Random rand = new Random();
-		
-	private int code;
-	private String name;
-	private String description;
-	private int price;
-	private int iva;
+	private int codice;
+	private String nome;
+	private String descrizione;
+	private double prezzo;
+	private double iva;
 	
-	public Prodotto (String name, String description, int price, int iva) {
+	public Prodotto() {};
+	
+	Random rnd = new Random();
+	
+	public Prodotto(String nome, String descrizione, double prezzo, double iva) {
 		
-		setName(name);
-		setDescription(description);
-		setPrice(price);
+		codice = rnd.nextInt(100000000);
+		setNome(nome);
+		setDescrizione(descrizione);
+		setPrezzo(prezzo);
 		setIva(iva);
-		
-		code = rand.nextInt(100000000);
-		
 	}
 	
-	public int getCode() {	
+	public int getCodice() {
 		
-		return code;
+		return codice;
 	}
 	
-	public String getName() {
+	public String getNome() {
 		
-		return name;
+		return nome;
 	}
 	
-	public void setName(String name) {
+	public void setNome(String nome) {
 		
-		this.name = name;
+		this.nome = nome;
 	}
 	
-	public String getDescription() {
+	public String getDescrizione() {
 		
-		return description;
+		return descrizione;
 	}
 	
-	public void setDescription(String description) {
+	public void setDescrizione(String descrizione) {
 		
-		this.description = description;
+		this.descrizione = descrizione;
 	}
 	
-	public int getPrice() {
+	public double getPrezzo() {
 		
-		return price;
+		return prezzo;
 	}
 	
-	public void setPrice(int price) {
+	public void setPrezzo(double prezzo) {
 		
-		this.price = price;
+		this.prezzo = prezzo;
 	}
 	
-	public int getIva() {
+	public double getIva() {
 		
 		return iva;
 	}
 	
-	public void setIva(int iva) {
+	public void setIva(double iva) {
 		
 		this.iva = iva;
 	}
 	
-	public String getFullCode() {
+	
+	public double prezzoIva() {
 		
-		return getCode() + "-" + getName();
+		return prezzo * iva;
 	}
 	
-	public int getPriceIva() {
+	public String nomeEsteso() {
 		
-		int fullPrice = (int) ((int) price * (1 + iva / 100f));
-		
-		return fullPrice;
+		return barCodice() + "-" + nome;
 	}
 	
-	public String getBarCode() {
+	public String barCodice() {
 		
-		String strCode = "" + code;
-		int lng = strCode.length();
+		String strCodice = "" + codice;
 		
-		for ( int i = 0; i < 8 - lng; i++) {
-			strCode = "0" + strCode;
+		int strLng = strCodice.length();
+		
+		String barCodice = strCodice;
+		
+		if (strLng < 8) {
+			
+			int barLng = 8 - strLng;
+			
+			for (int i = 0; i < barLng; i++) {
+				
+				barCodice = "0" + barCodice;
+			}
 		}
 		
-		return strCode;
+		return barCodice;
 	}
 	
 	
 	@Override
 	public String toString() {
-		
-		return ("Code: " + getCode() + "\n"
-				+ "Full code: " + getFullCode() + "\n"
-				+ "Name: " + getName() + "\n"
-				+ "Description: " + getDescription() + "\n"
-				+ "Price: " + getPrice() + "\n"
-				+ "Iva: " + getIva() + "\n"
-				+ "Price with iva: " + getPriceIva() + "\n"
-				+ "Bar code: " + getBarCode());
+
+		return "Il codice del prodotto è: " + barCodice() + 
+				" | Nome: " + getNome() +
+				" | Nome esteso: " + nomeEsteso() +
+				" | Descrizione: " + getDescrizione() + 
+				" | Prezzo senza Iva: " + getPrezzo() + 
+				" | Prezzo con " + getIva() + "% di iva: " + String.format("%.2f$", prezzoIva());
 	}
 }

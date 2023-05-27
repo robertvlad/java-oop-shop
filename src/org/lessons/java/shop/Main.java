@@ -4,8 +4,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Prodotto prod1 = new Prodotto("iPhone", "Smarthphone", 700, 22);
+		Prodotto newProdotto = new Prodotto("iPhone", "Smarthphone", 699.99, 1.22);
 		
-		System.out.println(prod1);
+		System.out.println(newProdotto);
 	}
 }
