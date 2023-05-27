@@ -1,65 +1,80 @@
 package jana60.bank;
 
+import java.util.Random;
+
 public class Conto {
 	
-	private int numeroConto;
-	private String nomeProprietario;
-	private float saldo;	
+	private int nrConto;
+	private String nome;
+	private int saldo;
 	
-	public Conto(int numeroConto, String nomeProprietario) {
+	Random rnd = new Random();
+	
+	public Conto() {}
+	
+	public Conto(String nome) {
 		
-		this.saldo = 0;
-		this.numeroConto = numeroConto;
-		this.nomeProprietario = nomeProprietario;		
+		nrConto = rnd.nextInt(1001);
+		setNome(nome);
+		saldo = 0;
+	}
+	
+	public int getNrConto() {
+		
+		return nrConto;
+	}
+	
+	public String getNome() {
+		
+		return nome;
+	}
+	
+	public void setNome(String nome) {
+		
+		this.nome = nome;
+	}
+	
+	public int getSaldo() {
+		
+		return saldo;
 	}
 	
 	
-	public int getNumeroConto() {
+	public void deposito(int sommaDeposito) {
 		
-		return this.numeroConto;
+		this.saldo += sommaDeposito;
+		System.out.println("Il tuo saldo attuale è: " + getSaldo() + "$");
 	}
 	
-	public float getSaldo() {
+	public void prelevare(int sommaPrelievo) {
 		
-		return this.saldo;
-	}
-	
-	public String getNomeProprietario() {
-		
-		return this.nomeProprietario;
-	}
-	
-	public void setNomeProprietario(String nomeProprietario) {
-		
-		this.nomeProprietario = nomeProprietario;
-	}
-	
-	
-	public void versare(float sommaDaVersare) {
-		
-		this.saldo += sommaDaVersare;		
-	}
-	
-	public void prelevare(float sommaDaPrelevare) {
-		
-		float saldoArrivare = 0;
-		
-		saldoArrivare = this.saldo - sommaDaPrelevare;
-		
-		if(this.saldo > 0 && saldoArrivare >= 0) {
+		if (sommaPrelievo <= 0) {
 			
-			this.saldo -= sommaDaPrelevare;
-			
-		}else {
-			
-			System.out.println("impossibile continuare saldo in negativo");
+			System.out.println("Il numero non è valido");
 		}
-		
+		else if (saldo == 0) {
+			
+			System.out.println("Il suo saldo è 0$, non puoi prelevare");
+		}
+		else if (saldo < sommaPrelievo){
+			
+			System.out.println("Il tuo saldo è inferiore alla somma desiderata. Il tuo saldo è: " + getSaldo() + "$");			
+		}
+		else {
+			
+			this.saldo = saldo - sommaPrelievo;
+			System.out.println("Prielievo effettuato. Il tuo saldo ora è: " + getSaldo() + "$");
+		}
 	}
+	
 	
 	@Override
 	public String toString() {
 		
-		return "nome : " + getNomeProprietario() + " numero conto : " + getNumeroConto() + " saldo : " + getSaldo();
+		return "| Nome conto: " + getNome() +
+				" | Numero conto: " + getNrConto() +
+				" | Saldo: " + getSaldo() + "$ |";
 	}
+	
+	
 }

@@ -1,52 +1,46 @@
 package jana60.bank;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class Bank {
 	
 	public static void main(String[] args) {
 		
-		Random rnd = new Random();
-		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Inserisci il tuo nome per creare il tuo nuovo conto bancario: ");
+		System.out.println("A quale nome vuoi aprire il tuo conto?");		
 		String nome = sc.nextLine();
 		
-		Conto contoUtente = new Conto(rnd.nextInt(1,1000),nome);
-
-		int sceltaUtente = -1;
+		Conto newConto = new Conto(nome);
 		
-		while(sceltaUtente != 3) {
+		System.out.println(newConto);
+		
+		int risp = -1;
+		
+		while (risp != 3) {
 			
-			System.out.println("Cosa vuoi fare? \n 0-versare somma \n 1-prelevare somma \n -2 informazioni conto \n -3 uscire");
-			sceltaUtente = sc.nextInt();		
+			System.out.println("Premere: 1 per prelevare, 2 per depositare, 3 per uscire.");
+			risp = sc.nextInt();
 			
-			if(sceltaUtente == 0) {
+			if (risp == 1) {
 				
-				System.out.println("Quanto vuoi versare?: ");
-				float cifraVersare = sc.nextFloat();
+				System.out.println("Quanto vuoi prelevare?");
+				int prel = sc.nextInt();
 				
-				contoUtente.versare(cifraVersare);
+				newConto.prelevare(prel);
+			}
+			else if (risp == 2) {
 				
-				System.out.println(contoUtente.getSaldo());
+				System.out.println("Quanto vuoi depositare?");
+				int dep = sc.nextInt();
 				
-			}else if(sceltaUtente == 1) {
-				
-				System.out.println("Quanto vuoi prelevare?: ");
-				float cifraPrelevare = sc.nextFloat();
-				
-				contoUtente.prelevare(cifraPrelevare);
-				
-				System.out.println(contoUtente.getSaldo());
-				
-			}else if(sceltaUtente == 2) {
-				
-				System.out.println(contoUtente);
-			}		
+				newConto.deposito(dep);
+			}			
 		}
+		
+		System.out.println("Grazie ed arrivederci!");
 		
 		sc.close();
 	}
+	
 }
